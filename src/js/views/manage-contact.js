@@ -79,6 +79,8 @@ export const ManageContact = () => {
             <Link >
                 <button type="submit" className="btn btn-primary" onClick={handleAddContact}>{params.id?"Save contact" : "Add new contact"}</button>
             </Link>
+            <Link to="/"><button>go back to home page </button>
+            </Link>
         </div>
     );
 };

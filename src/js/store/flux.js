@@ -30,6 +30,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				const data = await response.json();
 				setStore({ contacts: [...getStore().contacts, data] });
+			  },
+			  deleteContact: async contactId => {
+				const response = await fetch(`https://assets.breatheco.de/apis/fake/contact/${contactId}`, {
+				  method: "DELETE",
+				  headers: { "Content-Type": "application/json" }
+				});
+				if (response.ok) {
+				  const newContactList = getStore().contacts.filter(contact => contact.id !== contactId);
+				  setStore({ contacts: newContactList });
+				} 
+				
 			  }
 		}
 	};

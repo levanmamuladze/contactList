@@ -4,89 +4,83 @@ import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-  const [newContact, setNewContact] = useState({});
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [contactToDelete, setContactToDelete] = useState(null);
 
-  const handleAddContact = () => {
-	actions.addContact(newContact);
-	setNewContact({});
+  const handleDeleteContact = (contact) => {
+    setContactToDelete(contact);
+    setShowDeleteModal(true);
   };
+
+  const confirmDeleteContact = () => {
+    if (contactToDelete) {
+      actions.deleteContact(contactToDelete.id);
+      setShowDeleteModal(false);
+      setContactToDelete(null);
+    }
+  };
+
   return (
     <div className="container">
-      <div className="mb-3">
-        <label htmlFor="name" className="form-label">
-          name
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="name"
-          value={newContact.full_name || ""}
-          onChange={(e) =>
-            setNewContact({ ...newContact, full_name: e.target.value })
-          }
-        />
-        <label htmlFor="email" className="form-label">
-          Email address
-        </label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          value={newContact.email || ""}
-          onChange={(e) =>
-            setNewContact({ ...newContact, email: e.target.value })
-          }
-        />
-        <label htmlFor="address" className="form-label">
-          address
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="address"
-          value={newContact.address || ""}
-          onChange={(e) =>
-            setNewContact({ ...newContact, address: e.target.value })
-          }
-        />
-        <label htmlFor="phone" className="form-label">
-          phone
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          id="phone"
-          value={newContact.phone || ""}
-          onChange={(e) =>
-            setNewContact({ ...newContact, phone: e.target.value.toString() })
-          }
-        />
-        <label htmlFor="agenda" className="form-label">
-          agenda
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="agenda"
-          value={newContact.agenda_slug || ""}
-          onChange={(e) =>
-            setNewContact({ ...newContact, agenda_slug: e.target.value })
-          }
-        />
+      <div className="row">
+        {store.contacts.map((contact) => (
+          <div className="col-md-4 mb-3" key={contact.id}>
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">{contact.full_name}</h5>
+                <p className="card-text">{contact.email}</p>
+                <p className="card-text">{contact.address}</p>
+                <p className="card-text">{contact.phone}</p>
+                <p className="card-text">{contact.agenda_slug}</p>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => handleDeleteContact(contact)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-      <div className="mb-3">
-        <label className="form-check-label" htmlFor="exampleCheck1">
-          Check me out
-        </label>
+      <div
+        className={`modal ${showDeleteModal ? "d-block" : "d-none"}`}
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalCenterTitle">
+                Delete contact
+              </h5>
+              <button
+                onClick={() => setShowDeleteModal(false)}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              You really want to delete this lovely person?
+            </div>
+            <div className="modal-footer">
+              <button
+                className="btn btn-secondary"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={() => confirmDeleteContact()}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <Link >
-  <button
-    type="submit"
-    className="btn btn-primary"
-    onClick={handleAddContact}
-  >
-    Submit
-  </button>
+      <Link to="/manage-contact">
+  <button className="btn btn-primary mt-3">Manage Contacts</button>
 </Link>
     </div>
   );
