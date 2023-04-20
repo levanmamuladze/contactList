@@ -1,3 +1,8 @@
 /* 
     General Styles
 */
+
+.logo-text {
+    text-decoration: none;
+    font-weight: 600;
+}

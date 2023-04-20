@@ -28,13 +28,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  headers: { "Content-Type": "application/json" },
 				  body: JSON.stringify(contactData),
 				});
-				const editedContact = await response.json();
-                const contacts = getStore().contacts.map(contact => {
-                    if (contact.id === editedContact.id) {
-                        return editedContact;
-                    } else {return contact}
-                });
-                setStore({ contacts: contacts });
+				// const editedContact = await response.json();
+                // const contacts = getStore().contacts.map(contact => {
+                //     if (contact.id === editedContact.id) {
+                //         return editedContact;
+                //     } else {return contact}
+                // });
+                // setStore({ contacts: contacts });
+				if(response.ok) setStore({contacts: getActions().getAllContacts()})
 			  },
 			  deleteContact: async contactId => {
 				const response = await fetch(`https://assets.breatheco.de/apis/fake/contact/${contactId}`, {
