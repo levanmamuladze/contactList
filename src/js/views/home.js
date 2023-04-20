@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,8 @@ export const Home = () => {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row text-center">
+        {store.contacts.length === 0 ? <h3 className="m-5">Getting contacts...</h3>:null}
         {store.contacts.map((contact) => (
           <div className="col-md-4 mb-3" key={contact.id}>
             <div className="card">
@@ -84,9 +85,6 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      <Link to="/manage-contact">
-        <button className="btn btn-primary mt-3">Manage Contacts</button>
-      </Link>
     </div>
   );
 };

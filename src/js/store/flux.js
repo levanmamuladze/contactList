@@ -1,10 +1,10 @@
 import { json } from "react-router";
-
+import {actions} from "react"
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			contacts:[],
-			newContact:{}
+			newContact:{},
 		},
 		actions: {
 			getAllContacts: async  ()=>{
@@ -28,8 +28,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  headers: { "Content-Type": "application/json" },
 				  body: JSON.stringify(contactData),
 				});
-				const data = await response.json();
-				setStore({ contacts: [...getStore().contacts, data] });
+				const editedContact = await response.json();
+                const contacts = getStore().contacts.map(contact => {
+                    if (contact.id === editedContact.id) {
+                        return editedContact;
+                    } else {return contact}
+                });
+                setStore({ contacts: contacts });
 			  },
 			  deleteContact: async contactId => {
 				const response = await fetch(`https://assets.breatheco.de/apis/fake/contact/${contactId}`, {

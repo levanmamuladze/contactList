@@ -6,6 +6,7 @@ export const ManageContact = () => {
     const { store, actions } = useContext(Context);
     const [contactData, setContactData] = useState({});
     const params = useParams();
+    const [buttonClicked, setButtonClicked] = useState(false);
 
     useEffect(() => {
         if(params.id) setContactData(getContact());
@@ -17,6 +18,7 @@ export const ManageContact = () => {
         }else{
             actions.addContact(contactData);
         }
+        setButtonClicked(true);
     }
     
     const getContact = async () => {
@@ -33,6 +35,7 @@ export const ManageContact = () => {
                 onChange={(e) =>
                     setContactData({ ...contactData, full_name: e.target.value })
                 }
+                onFocus={()=>{setButtonClicked(false)}}
             />
 
             <label htmlFor="email" className="form-label">Email address:</label>
@@ -41,6 +44,7 @@ export const ManageContact = () => {
                 onChange={(e) =>
                     setContactData({ ...contactData, email: e.target.value })
                 }
+                onFocus={()=>{setButtonClicked(false)}}
             />
 
             <label htmlFor="address" className="form-label">Address:</label>
@@ -49,6 +53,7 @@ export const ManageContact = () => {
                 onChange={(e) =>
                     setContactData({ ...contactData, address: e.target.value })
                 }
+                onFocus={()=>{setButtonClicked(false)}}
             />
 
             <label htmlFor="phone" className="form-label">Phone:</label>
@@ -57,29 +62,27 @@ export const ManageContact = () => {
                 onChange={(e) =>
                     setContactData({ ...contactData, phone: e.target.value.toString() })
                 }
+                onFocus={()=>{setButtonClicked(false)}}
             />
 
             <label htmlFor="agenda" className="form-label">Agenda:</label>
-            {/* <input type="text" className="form-control" id="agenda"
-                value={contactData.agenda_slug || "levan-claudio"}
-                onChange={(e) =>
-                    setContactData({ ...contactData, agenda_slug: e.target.value })
-                }
-            /> */}
-
             <select id="agenda" className="form-select" aria-label="Default select example"
                 onChange={(e) =>
                     setContactData({ ...contactData, agenda_slug: e.target.value })
                 }
+                onFocus={()=>{setButtonClicked(false)}}
             >
                 <option defaultValue={'selected'}>Select an Agenda</option>
                 <option value={contactData.agenda_slug || "levan-claudio"}>{contactData.agenda_slug || "levan-claudio"}</option>
             </select>
+            
 
             <Link >
-                <button type="submit" className="btn btn-primary" onClick={handleAddContact}>{params.id?"Save contact" : "Add new contact"}</button>
+                <button type="submit" className="btn btn-primary" onClick={handleAddContact} disabled={buttonClicked}>{params.id?"Save contact" : "Add new contact"}</button>
             </Link>
-            <Link to="/"><button>go back to home page </button>
+
+            <Link to="/">
+                <button>go back to home page </button>
             </Link>
         </div>
     );
