@@ -20,6 +20,10 @@ export const Home = () => {
     }
   };
 
+  const handleEditContact = (contact) => {
+    actions.setEditContact(contact);
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -32,6 +36,11 @@ export const Home = () => {
                 <p className="card-text">{contact.address}</p>
                 <p className="card-text">{contact.phone}</p>
                 <p className="card-text">{contact.agenda_slug}</p>
+                <Link to={`/manage-contact/${contact.id}`}>
+                  <button type="button" className="btn btn-primary">
+                    Edit
+                  </button>
+                </Link>
                 <button
                   type="button"
                   className="btn btn-danger"
@@ -44,18 +53,14 @@ export const Home = () => {
           </div>
         ))}
       </div>
-      <div
-        className={`modal ${showDeleteModal ? "d-block" : "d-none"}`}
-      >
+      <div className={`modal ${showDeleteModal ? "d-block" : "d-none"}`}>
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalCenterTitle">
                 Delete contact
               </h5>
-              <button
-                onClick={() => setShowDeleteModal(false)}
-              >
+              <button onClick={() => setShowDeleteModal(false)}>
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -80,9 +85,8 @@ export const Home = () => {
         </div>
       </div>
       <Link to="/manage-contact">
-  <button className="btn btn-primary mt-3">Manage Contacts</button>
-</Link>
+        <button className="btn btn-primary mt-3">Manage Contacts</button>
+      </Link>
     </div>
   );
 };
-
