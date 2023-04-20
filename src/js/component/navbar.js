@@ -6,6 +6,7 @@ export const Navbar = () => {
 
 	return (
 		<nav className="navbar navbar-light bg-light mb-3 p-3">
+			<div className="container">
 			<Link to="/" className="navbar-brand">
 				<span><i class="fa-solid fa-address-card px-2"></i>CONTACT LIST</span>
 			</Link>
@@ -15,6 +16,7 @@ export const Navbar = () => {
 					<button className="btn btn-success">Add new contact</button>
 				</Link>
 				:null}
+			</div>
 			</div>
 		</nav>
 	);
