@@ -29,7 +29,7 @@ export const Home = () => {
       <div className="row">
         {store.contacts.length === 0 ? <h3 className="m-5">Getting contacts...</h3>:null}
         {store.contacts.map((contact) => (
-          <div className="col-md-4 mb-3" key={contact.id}>
+          <div className="col-sm-12 col-md-6 col-lg-4 mb-3" key={contact.id}>
             <div className="card shadow">
               <div className="card-body">
                 <h5 className="card-title">{contact.full_name}</h5>
