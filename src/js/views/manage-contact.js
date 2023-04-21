@@ -72,8 +72,8 @@ export const ManageContact = () => {
                 }
                 onFocus={()=>{setButtonClicked(false)}}
             >
-                <option defaultValue={'selected'}>Select an Agenda</option>
-                <option value={contactData.agenda_slug || "levan-claudio"}>{contactData.agenda_slug || "levan-claudio"}</option>
+                <option >Select an Agenda</option>
+                <option value={contactData.agenda_slug || "levan-claudio"} selected={contactData.agenda_slug}>{contactData.agenda_slug || "levan-claudio"}</option>
             </select>
             
 
