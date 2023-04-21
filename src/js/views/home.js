@@ -33,15 +33,15 @@ export const Home = () => {
             <div className="card shadow">
               <div className="card-body">
                 <h5 className="card-title">{contact.full_name}</h5>
-                <p className="card-text"><i class="fa-solid fa-envelope px-2"></i>{contact.email}</p>
-                <p className="card-text"><i class="fa-solid fa-location-dot px-2"></i>{contact.address}</p>
-                <p className="card-text"><i class="fa-solid fa-phone px-2"></i>{contact.phone}</p>
-                <p className="card-text">{contact.agenda_slug}</p>
+                <p className="card-text"><i className="fa-solid fa-envelope px-2"></i>{contact.email}</p>
+                <p className="card-text"><i className="fa-solid fa-location-dot px-2"></i>{contact.address}</p>
+                <p className="card-text"><i className="fa-solid fa-phone px-2"></i>{contact.phone}</p>
+                <p className="card-text"><i className="fa-regular fa-calendar-days px-2"></i>{contact.agenda_slug}</p>
                 <div className="d-flex">
                   <Link to={`/manage-contact/${contact.id}`}>
-                    <button type="button" className="btn text-primary"><i class="fa-solid fa-user-pen"></i></button>
+                    <button type="button" className="btn text-primary"><i className="fa-solid fa-user-pen"></i></button>
                   </Link>
-                  <button type="button" className="btn text-danger" onClick={() => handleDeleteContact(contact)}><i class="fa-solid fa-trash-can"></i></button>
+                  <button type="button" className="btn text-danger" onClick={() => handleDeleteContact(contact)}><i className="fa-solid fa-trash-can"></i></button>
                 </div>
               </div>
             </div>
