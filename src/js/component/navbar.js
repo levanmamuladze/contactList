@@ -11,11 +11,11 @@ export const Navbar = () => {
 				<i className="fa-solid fa-address-card px-2 fs-2"></i><span>CONTACT LIST</span>
 			</Link>
 			<div className="ml-auto">
-				{location.pathname === "/" 
-				?<Link to="/manage-contact/">
-					<button className="btn btn-success">Add new contact</button>
+
+				<Link to={location.pathname === "/"?"/manage-contact/":null}>
+					<button className="btn btn-success" disabled={location.pathname !== "/"}>Add new contact</button>
 				</Link>
-				:null}
+
 			</div>
 			</div>
 		</nav>
