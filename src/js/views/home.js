@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-  // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [contactToDelete, setContactToDelete] = useState(null);
 
   const handleDeleteContact = (contact) => {
@@ -17,10 +16,6 @@ export const Home = () => {
       setContactToDelete(null);
     }
   };
-
-  // const handleEditContact = (contact) => {
-  //   actions.setEditContact(contact);
-  // };
 
   return (
     <div className="container">
@@ -59,7 +54,7 @@ export const Home = () => {
                     type="button"
                     className="btn text-danger"
                     data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    data-bs-target={"#exampleModal" + contact.id}
                     onClick={() => handleDeleteContact(contact)}
                   >
                     <i className="fa-solid fa-trash-can"></i>
@@ -67,7 +62,7 @@ export const Home = () => {
                 </div>
                 <div
                   className="modal fade"
-                  id="exampleModal"
+                  id={"exampleModal"+contact.id}
                   tabIndex="-1"
                   aria-labelledby="exampleModalLabel"
                   aria-hidden="true"
@@ -75,7 +70,7 @@ export const Home = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">
+                        <h1 className="modal-title fs-5" >
                           Delete contact:{" "}
                           {contactToDelete ? contactToDelete.full_name : null}
                         </h1>
@@ -111,6 +106,8 @@ export const Home = () => {
               </div>
             </div>
           </div>
+       
+
         ))}
       </div>
 
