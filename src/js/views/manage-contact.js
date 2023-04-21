@@ -29,6 +29,9 @@ export const ManageContact = () => {
 
     return (
         <div className="container">
+            <div className="row">
+                <h1>{params.id ? "Edit contact" : "Add a new contact"}</h1>
+            </div>
             <label htmlFor="name" className="form-label">Name:</label>
             <input type="text" className="form-control" id="name"
                 value={contactData.full_name || ""}
@@ -76,14 +79,15 @@ export const ManageContact = () => {
                 <option value={contactData.agenda_slug || "levan-claudio"} selected={contactData.agenda_slug}>{contactData.agenda_slug || "levan-claudio"}</option>
             </select>
             
-
+            <div className="row my-3">
             <Link >
-                <button type="submit" className="btn btn-primary" onClick={handleAddContact} disabled={buttonClicked}>{params.id?"Save contact" : "Add new contact"}</button>
+                <button type="submit" className="btn btn-primary w-100" onClick={handleAddContact} disabled={buttonClicked}>{params.id?"Save" : "Add"}</button>
             </Link>
 
             <Link to="/">
-                <button>go back to home page </button>
+                <span className="">or get back to home page</span>
             </Link>
+            </div>
         </div>
     );
 };
