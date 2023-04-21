@@ -37,18 +37,12 @@ export const Home = () => {
                 <p className="card-text">{contact.address}</p>
                 <p className="card-text">{contact.phone}</p>
                 <p className="card-text">{contact.agenda_slug}</p>
-                <Link to={`/manage-contact/${contact.id}`}>
-                  <button type="button" className="btn btn-primary">
-                    Edit
-                  </button>
-                </Link>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={() => handleDeleteContact(contact)}
-                >
-                  Delete
-                </button>
+                <div className="d-flex justify-content-between">
+                  <Link to={`/manage-contact/${contact.id}`}>
+                    <button type="button" className="btn btn-primary"><i class="fa-solid fa-user-pen"></i></button>
+                  </Link>
+                  <button type="button" className="btn btn-danger" onClick={() => handleDeleteContact(contact)}><i class="fa-solid fa-trash-can"></i></button>
+                </div>
               </div>
             </div>
           </div>
