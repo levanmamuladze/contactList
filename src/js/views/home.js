@@ -9,20 +9,18 @@ export const Home = () => {
 
   const handleDeleteContact = (contact) => {
     setContactToDelete(contact);
-    setShowDeleteModal(true);
   };
 
   const confirmDeleteContact = () => {
     if (contactToDelete) {
       actions.deleteContact(contactToDelete.id);
-      setShowDeleteModal(false);
       setContactToDelete(null);
     }
   };
 
-  const handleEditContact = (contact) => {
-    actions.setEditContact(contact);
-  };
+  // const handleEditContact = (contact) => {
+  //   actions.setEditContact(contact);
+  // };
 
   return (
     <div className="container">
@@ -41,14 +39,34 @@ export const Home = () => {
                   <Link to={`/manage-contact/${contact.id}`}>
                     <button type="button" className="btn text-primary"><i className="fa-solid fa-user-pen"></i></button>
                   </Link>
-                  <button type="button" className="btn text-danger" onClick={() => handleDeleteContact(contact)}><i className="fa-solid fa-trash-can"></i></button>
+                  <button type="button" className="btn text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleDeleteContact(contact)}><i className="fa-solid fa-trash-can"></i></button>
                 </div>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div className={`modal ${showDeleteModal ? "d-block" : "d-none"}`}>
+
+      {/* <!-- Modal --> */}
+      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Delete contact</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+            You really want to delete this lovely person?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={() => setShowDeleteModal(false)} data-bs-dismiss="modal">Close</button>
+              <button className="btn btn-danger" onClick={() => confirmDeleteContact()}>Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* <div className="modal fade" id="deleteContact" aria-labelledby="deleteContactLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -78,7 +96,7 @@ export const Home = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
