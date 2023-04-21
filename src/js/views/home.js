@@ -26,16 +26,16 @@ export const Home = () => {
 
   return (
     <div className="container">
-      <div className="row text-center">
+      <div className="row">
         {store.contacts.length === 0 ? <h3 className="m-5">Getting contacts...</h3>:null}
         {store.contacts.map((contact) => (
           <div className="col-md-4 mb-3" key={contact.id}>
             <div className="card shadow">
               <div className="card-body">
                 <h5 className="card-title">{contact.full_name}</h5>
-                <p className="card-text">{contact.email}</p>
-                <p className="card-text">{contact.address}</p>
-                <p className="card-text">{contact.phone}</p>
+                <p className="card-text"><i class="fa-solid fa-envelope px-2"></i>{contact.email}</p>
+                <p className="card-text"><i class="fa-solid fa-location-dot px-2"></i>{contact.address}</p>
+                <p className="card-text"><i class="fa-solid fa-phone px-2"></i>{contact.phone}</p>
                 <p className="card-text">{contact.agenda_slug}</p>
                 <div className="d-flex justify-content-between">
                   <Link to={`/manage-contact/${contact.id}`}>
