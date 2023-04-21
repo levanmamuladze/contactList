@@ -56,20 +56,28 @@ export const ManageContact = () => {
       </div>
 
       <div className="form-floating mb-3">
-  <input
-    type="email"
-    className={`form-control ${contactData.email && !isValidEmail(contactData.email) ? "is-invalid" : ""}`}
-    id="email"
-    placeholder="Email address"
-    value={contactData.email || ""}
-    onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
-    onFocus={() => setButtonClicked(false)}
-  />
-  <label htmlFor="email">Email address:</label>
-  {contactData.email && !isValidEmail(contactData.email) && (
-    <div className="invalid-feedback">Please enter a valid email address.</div>
-  )}
-</div>
+        <input
+          type="email"
+          className={`form-control ${
+            contactData.email && !isValidEmail(contactData.email)
+              ? "is-invalid"
+              : ""
+          }`}
+          id="email"
+          placeholder="Email address"
+          value={contactData.email || ""}
+          onChange={(e) =>
+            setContactData({ ...contactData, email: e.target.value })
+          }
+          onFocus={() => setButtonClicked(false)}
+        />
+        <label htmlFor="email">Email address:</label>
+        {contactData.email && !isValidEmail(contactData.email) && (
+          <div className="invalid-feedback">
+            Please enter a valid email address.
+          </div>
+        )}
+      </div>
 
       <div className="form-floating mb-3">
         <input
@@ -134,7 +142,13 @@ export const ManageContact = () => {
             type="submit"
             className="btn btn-primary w-100"
             onClick={handleAddContact}
-            disabled={buttonClicked}
+            disabled={
+              buttonClicked ||
+              !contactData.full_name ||
+              !contactData.email ||
+              !contactData.address ||
+              !contactData.phone
+            }
           >
             {params.id ? "Save" : "Add"}
           </button>
