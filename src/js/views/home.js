@@ -60,7 +60,7 @@ export const Home = () => {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button className="btn btn-danger" onClick={() => confirmDeleteContact()}>Delete</button>
+              <button className="btn btn-danger" onClick={() => confirmDeleteContact()} data-bs-dismiss="modal">Delete</button>
             </div>
           </div>
         </div>
