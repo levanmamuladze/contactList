@@ -25,21 +25,88 @@ export const Home = () => {
   return (
     <div className="container">
       <div className="row">
-        {store.contacts.length === 0 ? <h3 className="m-5">Getting contacts...</h3>:null}
+        {store.contacts.length === 0 ? (
+          <h3 className="m-5">Getting contacts...</h3>
+        ) : null}
         {store.contacts.map((contact) => (
           <div className="col-sm-12 col-md-6 col-lg-4 mb-3" key={contact.id}>
             <div className="card shadow">
               <div className="card-body">
                 <h5 className="card-title">{contact.full_name}</h5>
-                <p className="card-text"><i className="fa-solid fa-envelope px-2"></i>{contact.email}</p>
-                <p className="card-text"><i className="fa-solid fa-location-dot px-2"></i>{contact.address}</p>
-                <p className="card-text"><i className="fa-solid fa-phone px-2"></i>{contact.phone}</p>
-                <p className="card-text"><i className="fa-regular fa-calendar-days px-2"></i>{contact.agenda_slug}</p>
+                <p className="card-text">
+                  <i className="fa-solid fa-envelope px-2"></i>
+                  {contact.email}
+                </p>
+                <p className="card-text">
+                  <i className="fa-solid fa-location-dot px-2"></i>
+                  {contact.address}
+                </p>
+                <p className="card-text">
+                  <i className="fa-solid fa-phone px-2"></i>
+                  {contact.phone}
+                </p>
+                <p className="card-text">
+                  <i className="fa-regular fa-calendar-days px-2"></i>
+                  {contact.agenda_slug}
+                </p>
                 <div className="d-flex">
-                  <Link to={`/manage-contact/${contact.id}`}>
-                    <button type="button" className="btn text-primary"><i className="fa-solid fa-user-pen"></i></button>
+                  <Link to={"/manage-contact/" + contact.id}>
+                    <button type="button" className="btn text-primary">
+                      <i className="fa-solid fa-user-pen"></i>
+                    </button>
                   </Link>
-                  <button type="button" className="btn text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleDeleteContact(contact)}><i className="fa-solid fa-trash-can"></i></button>
+                  <button
+                    type="button"
+                    className="btn text-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    onClick={() => handleDeleteContact(contact)}
+                  >
+                    <i className="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+                <div
+                  className="modal fade"
+                  id="exampleModal"
+                  tabIndex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">
+                          Delete contact:{" "}
+                          {contactToDelete ? contactToDelete.full_name : null}
+                        </h1>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        You really want to delete this lovely person?
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => confirmDeleteContact(contact.id)}
+                          data-bs-dismiss="modal"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -48,7 +115,7 @@ export const Home = () => {
       </div>
 
       {/* <!-- Modal --> */}
-      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      {/* <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -64,8 +131,8 @@ export const Home = () => {
             </div>
           </div>
         </div>
-      </div>
-      
+      </div> */}
+
       {/* <div className="modal fade" id="deleteContact" aria-labelledby="deleteContactLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
