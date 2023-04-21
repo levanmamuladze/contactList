@@ -38,7 +38,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if(response.ok) setStore({contacts: getActions().getAllContacts()})
 			  },
 			  deleteContact: async contactId => {
-				const response = await fetch(`https://assets.breatheco.de/apis/fake/contact/${contactId}`, {
+				const response = await fetch("https://assets.breatheco.de/apis/fake/contact/"+contactId, {
 				  method: "DELETE",
 				  headers: { "Content-Type": "application/json" }
 				});
