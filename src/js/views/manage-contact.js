@@ -147,7 +147,8 @@ export const ManageContact = () => {
               !contactData.full_name ||
               !contactData.email ||
               !contactData.address ||
-              !contactData.phone
+              !contactData.phone ||
+              !contactData.agenda_slug
             }
           >
             {params.id ? "Save" : "Add"}
