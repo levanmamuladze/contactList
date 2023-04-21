@@ -37,11 +37,11 @@ export const Home = () => {
                 <p className="card-text"><i class="fa-solid fa-location-dot px-2"></i>{contact.address}</p>
                 <p className="card-text"><i class="fa-solid fa-phone px-2"></i>{contact.phone}</p>
                 <p className="card-text">{contact.agenda_slug}</p>
-                <div className="d-flex justify-content-between">
+                <div className="d-flex">
                   <Link to={`/manage-contact/${contact.id}`}>
-                    <button type="button" className="btn btn-primary"><i class="fa-solid fa-user-pen"></i></button>
+                    <button type="button" className="btn text-primary"><i class="fa-solid fa-user-pen"></i></button>
                   </Link>
-                  <button type="button" className="btn btn-danger" onClick={() => handleDeleteContact(contact)}><i class="fa-solid fa-trash-can"></i></button>
+                  <button type="button" className="btn text-danger" onClick={() => handleDeleteContact(contact)}><i class="fa-solid fa-trash-can"></i></button>
                 </div>
               </div>
             </div>
