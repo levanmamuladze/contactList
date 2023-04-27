@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			contacts:[],
 			newContact:{},
+			updateContactStatus: false
 		},
 		actions: {
 			getAllContacts: async  ()=>{
@@ -35,7 +36,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 //     } else {return contact}
                 // });
                 // setStore({ contacts: contacts });
-				if(response.ok) setStore({contacts: getActions().getAllContacts()})
+				if(response.ok){
+					setStore({contacts: getActions().getAllContacts()});
+					setStore({updateContactStatus: true});
+				}
 			  },
 			  deleteContact: async contactId => {
 				const response = await fetch("https://assets.breatheco.de/apis/fake/contact/"+contactId, {

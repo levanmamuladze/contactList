@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const ManageContact = () => {
   const { store, actions } = useContext(Context);
   const [contactData, setContactData] = useState({});
-  const params = useParams();
   const [buttonClicked, setButtonClicked] = useState(false);
+  const navigate = useNavigate();
+  const params = useParams();
 
   useEffect(() => {
     if (params.id) setContactData(getContact());
@@ -16,12 +17,16 @@ export const ManageContact = () => {
     return emailRegex.test(email);
   }
 
-  const handleAddContact = () => {
-    if (params.id) {
-      actions.updateContact(contactData);
-    } else {
-      actions.addContact(contactData);
-    }
+  useEffect(() => {
+    
+  }, [store.updateContactStatus])
+
+  const handleContact = () => {
+    params.id
+      ? actions.updateContact(contactData)
+      : actions.addContact(contactData);
+
+    store.updateContactStatus = true;
     setButtonClicked(true);
   };
 
@@ -32,6 +37,11 @@ export const ManageContact = () => {
     const data = await response.json();
     setContactData(data);
   };
+
+  const goToHomePage = () => {
+    store.updateContactStatus = false;
+    navigate("/");
+  }
 
   return (
     <div className="container">
@@ -139,9 +149,11 @@ export const ManageContact = () => {
       <div className="row my-3">
         <Link>
           <button
-            type="submit"
+            type="button"
             className="btn btn-primary w-100"
-            onClick={handleAddContact}
+            data-bs-toggle="modal"
+            data-bs-target="#goToHomePage"
+            onClick={handleContact}
             disabled={
               buttonClicked ||
               !contactData.full_name ||
@@ -159,6 +171,31 @@ export const ManageContact = () => {
           <span className="">or get back to home page</span>
         </Link>
       </div>
+
+      {/* MODAL "GO TO HOME PAGE" */}
+      <div className="modal fade" id="goToHomePage" tabIndex="-1" aria-labelledby="goToHomePageLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" >{params.id ? "Contact edit" : "New contact"}</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              {store.updateContactStatus
+                ? <div className="modal-body">
+                    Successfully{params.id ? " edited " : " added "}contact!
+                  </div>
+                : <div className="modal-body">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+              }
+              <div className="modal-footer">
+                <button className="btn btn-success" onClick={() => goToHomePage()} data-bs-dismiss="modal" disabled={!store.updateContactStatus}>Go to home page</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   );
 };
